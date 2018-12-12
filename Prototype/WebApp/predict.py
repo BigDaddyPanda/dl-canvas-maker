@@ -236,7 +236,7 @@ TEXT_GEN_UVP = textgenrnn()
 Generators = {
     "BMC Customer Segments": TEXT_GEN_CS,
     "BMC Value Proposition": TEXT_GEN_VP,
-    "BMC Channels ": TEXT_GEN_CH,
+    "BMC Channels": TEXT_GEN_CH,
     "BMC Customer Relationship": TEXT_GEN_CR,
     "BMC Revenue Streams": TEXT_GEN_RS,
     "BMC Key Ressouces": TEXT_GEN_KR,
@@ -254,16 +254,18 @@ Generators = {
     "Unique Value Proposition": TEXT_GEN_UVP
 }
 for smart_field in Generators.keys():
-    dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, "textgeneration/exported/" + smart_field + ".txt")
-    weightfile = os.path.join(dirname, "textgeneration/weights/" + smart_field + ".hdf5")
     try:
-        Generators[smart_field].load(weightfile)
-        Generators[smart_field].model._make_predict_function()
-    except Exception as e:
-        Generators[smart_field].train_from_file(filename, num_epochs=1)
-        Generators[smart_field].save(weights_path=weightfile)
-
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, "textgeneration/exported/" + smart_field + ".txt")
+        weightfile = os.path.join(dirname, "textgeneration/weights/" + smart_field + ".hdf5")
+        try:
+            Generators[smart_field].load(weightfile)
+            Generators[smart_field].model._make_predict_function()
+        except Exception as e:
+            Generators[smart_field].train_from_file(filename, num_epochs=1)
+            Generators[smart_field].save(weights_path=weightfile)
+    except:
+        pass
 
 def text_optimizer(smart_field="BMC Key Partners"):
     try:
