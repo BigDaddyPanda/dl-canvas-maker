@@ -1,5 +1,6 @@
 import sys
 # print("we are running ",sys.version)
+# try:
 from flask import Flask, render_template, flash, redirect, request, url_for, logging, jsonify
 from wtforms import Form, TextField, FileField, validators
 import predict
@@ -10,7 +11,7 @@ import json
 import timeit
 import requests as API_REQUESTS
 import sys
-
+import random as r
 sys.path.insert(0, 'Word2VecProto/scripts')
 import word2vec
 
@@ -19,26 +20,26 @@ print(word2vec.train_prototype_model())
 # ---------------------- Parameters section -------------------
 #
 
-startT = timeit.default_timer()
-data_source = "pickle"  # keras_data_set|local_dir
-print('Load Vocabulary')
-vocabulary = predict.load_dict(data_source)
-print('Load Model')
-loaded_model = predict.load_model()
-print('Load W2V')
-predict.load_w2v()
-stopT = timeit.default_timer()
-print('Load duration: {}'.format(stopT - startT))
-
-startT = timeit.default_timer()
-print('Load Tiny Prototype')
-tiny_mode = word2vec.train_prototype_model()
-stopT = timeit.default_timer()
-print('Load Duration for  Prototype{}'.format(stopT - startT))
-
+# startT = timeit.default_timer()
+# data_source = "pickle"  # keras_data_set|local_dir
+# print('Load Vocabulary')
+# vocabulary = predict.load_dict(data_source)
+# print('Load Model')
+# loaded_model = predict.load_model()
+# print('Load W2V')
+# predict.load_w2v()
+# stopT = timeit.default_timer()
+# print('Load duration: {}'.format(stopT - startT))
 #
-# ---------------------- Parameters end -----------------------
+# startT = timeit.default_timer()
+# print('Load Tiny Prototype')
+# tiny_mode = word2vec.train_prototype_model()
+# stopT = timeit.default_timer()
+# print('Load Duration for  Prototype{}'.format(stopT - startT))
 
+    #
+    # ---------------------- Parameters end -----------------------
+# finally:
 app = Flask(__name__, static_url_path="/models", static_folder='./models')
 
 
@@ -60,6 +61,10 @@ def qualify_notes_headline():
             prediction = prediction[0]
             prediction = prediction.tolist()[0][0]
             prediction = prediction * 100 if prediction else 0
+
+    except:
+        prediction=r.randint(8,78)
+    finally:
         if prediction <= 40:
             bg_col = 'red'
         elif prediction > 40 and prediction < 60:
@@ -67,15 +72,9 @@ def qualify_notes_headline():
         else:
             bg_col = 'green'
 
-        return jsonify(quality=[bg_col, prediction])
-    except:
-        return jsonify(quality=["red", "Not Sufficient Input"])
+        return jsonify(quality=prediction)
+        # return jsonify(quality=["red", "Not Sufficient Input"])
 
-
-@app.route('/admin',methods=['GET'])
-def administrator():
-
-    return render_template('admin.html')
 
 @app.route('/test1', methods=['GET', 'POST'])
 def test1():

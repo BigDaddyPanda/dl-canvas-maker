@@ -108,3 +108,7 @@ Prototype/\.vscode/
 Prototype/data/
 **.vscode**
 \.idea/
+
+Prototype/WebApp/textgeneration/weights/
+
+*.hdf5
