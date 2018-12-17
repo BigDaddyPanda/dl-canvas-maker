@@ -20,22 +20,22 @@ print(word2vec.train_prototype_model())
 # ---------------------- Parameters section -------------------
 #
 
-# startT = timeit.default_timer()
-# data_source = "pickle"  # keras_data_set|local_dir
-# print('Load Vocabulary')
-# vocabulary = predict.load_dict(data_source)
-# print('Load Model')
-# loaded_model = predict.load_model()
-# print('Load W2V')
-# predict.load_w2v()
-# stopT = timeit.default_timer()
-# print('Load duration: {}'.format(stopT - startT))
-#
-# startT = timeit.default_timer()
-# print('Load Tiny Prototype')
-# tiny_mode = word2vec.train_prototype_model()
-# stopT = timeit.default_timer()
-# print('Load Duration for  Prototype{}'.format(stopT - startT))
+startT = timeit.default_timer()
+data_source = "pickle"  # keras_data_set|local_dir
+print('Load Vocabulary')
+vocabulary = predict.load_dict(data_source)
+print('Load Model')
+loaded_model = predict.load_model()
+print('Load W2V')
+predict.load_w2v()
+stopT = timeit.default_timer()
+print('Load duration: {}'.format(stopT - startT))
+
+startT = timeit.default_timer()
+print('Load Tiny Prototype')
+tiny_mode = word2vec.train_prototype_model()
+stopT = timeit.default_timer()
+print('Load Duration for  Prototype{}'.format(stopT - startT))
 
     #
     # ---------------------- Parameters end -----------------------
