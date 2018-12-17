@@ -72,7 +72,7 @@ def qualify_notes_headline():
         else:
             bg_col = 'green'
 
-        return jsonify(quality=prediction)
+        return jsonify(veridict=prediction)
         # return jsonify(quality=["red", "Not Sufficient Input"])
 
 
